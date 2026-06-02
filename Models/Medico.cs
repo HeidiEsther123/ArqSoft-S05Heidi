@@ -8,4 +8,5 @@
         public string Especialidad { get; set; }
         public string NumeroLicencia { get; set; }
     }
+    // se me olvido agregar feat
 }
