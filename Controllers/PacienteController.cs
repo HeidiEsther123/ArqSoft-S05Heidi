@@ -1,23 +1,25 @@
 ﻿using Citas_App.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Citas_App.Controllers
+namespace CitasApp.Controllers
 {
     public class PacienteController : Controller
     {
-        private static List<Paciente> _pacientes = new()
+        public static List<Paciente> Pacientes = new List<Paciente>
         {
-            new Paciente { Id = 1, Nombre = "Ana García", Email = "ana@mail.com", Telefono = "555-0001" },
-            new Paciente { Id = 2, Nombre = "Luis Martínez", Email = "luis@mail.com", Telefono = "555-0002" },
-            new Paciente { Id = 3, Nombre = "María López", Email = "maria@mail.com", Telefono = "555-0003" }
+            new Paciente { Id=1, Nombre="Ana García", Apellido="", Email="ana@mail.com", Telefono="555-0001" },
+            new Paciente { Id=2, Nombre="Luis Martínez", Apellido="", Email="luis@mail.com", Telefono="555-0002" },
+            new Paciente { Id=3, Nombre="María López", Apellido="", Email="maria@mail.com", Telefono="555-0003" }
         };
-
-        public IActionResult Index() => View(_pacientes);
-
-        public IActionResult Detalle(int id)
+        public IActionResult Index()
         {
-            var p = _pacientes.FirstOrDefault(x => x.Id == id);
-            return p == null ? NotFound() : View(p);
+            return View(Pacientes);
+        }
+   public IActionResult Detalle(int id)
+        {
+            var paciente = Pacientes.FirstOrDefault(p => p.Id == id);
+            if (paciente == null) return NotFound();
+            return View(paciente);
         }
     }
 }
