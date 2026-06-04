@@ -2,8 +2,6 @@
 
 ## 🍇 Descripción del Proyecto 🍇
 **Citas_App** es una aplicación web desarrollada bajo el patrón de arquitectura **Modelo-Vista-Controlador (MVC)** utilizando **ASP.NET Core**. El sistema está diseñado para optimizar la administración de una clínica médica, permitiendo gestionar los catálogos de **Pacientes** y **Médicos**, así como la programación y el cruce de datos en una **Agenda de Citas**.
-
-El proyecto destaca por implementar un enfoque de **desacoplamiento de componentes** y **persistencia local en archivos planos**, eliminando la dependencia de colecciones volátiles en memoria RAM y asegurando que la información se mantenga intacta tras reiniciar el servidor web.
 ---
 
 ## 🛠️ Tecnologías Utilizadas 🛠️
