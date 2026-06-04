@@ -1,44 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Citas_App.Models;
+using System.Text.Json;
 
 namespace Citas_App.Controllers
 {
     public class MedicoController : Controller
     {
-        public static List<Medico> Medicos = new List<Medico>
-        {
-            new Medico 
-            { 
-                Id = 1, 
-                Nombre = "Dr. Carlos Reyes", 
-                Especialidad = "Medicina General", 
-                NumeroLicencia = "MG-10421" 
-            },
-            new Medico 
-            { 
-                Id = 2, 
-                Nombre = "Dra. Patricia Vega", 
-                Especialidad = "Pediatría", 
-                NumeroLicencia = "PD-20835" 
-            },
-            new Medico 
-            { 
-                Id = 3, 
-                Nombre = "Dr. Roberto Sánchez", 
-                Especialidad = "Cardiología", 
-                NumeroLicencia = "CA-30117" 
-            }
-        };
+        private readonly string _pathMedicos;
 
+        public MedicoController(IWebHostEnvironment env)
+        {
+            _pathMedicos = Path.Combine(env.ContentRootPath, "data", "medicos.json");
+        }
+
+        private List<Medico> ObtenerMedicos()
+        {
+            if (!System.IO.File.Exists(_pathMedicos))
+            {
+                return new List<Medico>();
+            }
+            var json = System.IO.File.ReadAllText(_pathMedicos);
+            return JsonSerializer.Deserialize<List<Medico>>(json) ?? new List<Medico>();
+        }
+
+        
         public IActionResult Index()
         {
-            return View(Medicos);
+            var medicos = ObtenerMedicos();
+            return View(medicos);
         }
 
         public IActionResult Detalle(int id)
         {
-            var medico = Medicos.FirstOrDefault(m => m.Id == id);
-            if (medico == null) 
+            var medicos = ObtenerMedicos();
+            var medico = medicos.FirstOrDefault(m => m.Id == id);
+            if (medico == null)
             {
                 return NotFound();
             }

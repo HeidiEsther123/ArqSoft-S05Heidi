@@ -1,44 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Citas_App.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using Microsoft.AspNetCore.Hosting;
+
 namespace Citas_App.Controllers
 {
     public class PacienteController : Controller
     {
-        public static List<Paciente> Pacientes = new List<Paciente>
+        private readonly string _pathPacientes;
+
+        public PacienteController(IWebHostEnvironment env)
         {
-            new Paciente
+            _pathPacientes = Path.Combine(env.ContentRootPath, "data", "pacientes.json");
+        }
+
+        private List<Paciente> ObtenerPacientes()
+        {
+            if (!System.IO.File.Exists(_pathPacientes))
             {
-                Id = 1,
-                Nombre = "Ana García",
-                Apellido = "",
-                Email = "ana@mail.com",
-                Telefono = "555-0001"
-            },
-            new Paciente
-            {
-                Id = 2,
-                Nombre = "Luis Martínez",
-                Apellido = "",
-                Email = "luis@mail.com",
-                Telefono = "555-0002"
-            },
-            new Paciente
-            {
-                Id = 3,
-                Nombre = "María López",
-                Apellido = "",
-                Email = "maria@mail.com",
-                Telefono = "555-0003"
+                return new List<Paciente>();
             }
-        };
+            var json = System.IO.File.ReadAllText(_pathPacientes);
+            return JsonSerializer.Deserialize<List<Paciente>>(json) ?? new List<Paciente>();
+        }
+
         public IActionResult Index()
         {
-            return View(Pacientes);
+            var pacientes = ObtenerPacientes();
+            return View(pacientes);
         }
 
         public IActionResult Detalle(int id)
         {
-            var paciente = Pacientes.FirstOrDefault(p => p.Id == id);
+            var pacientes = ObtenerPacientes();
+            var paciente = pacientes.FirstOrDefault(p => p.Id == id);
             if (paciente == null)
             {
                 return NotFound();
