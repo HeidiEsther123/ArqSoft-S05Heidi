@@ -1,0 +1,8 @@
+﻿@model Citas_App.Models.Medico
+<h2>Perfil del Médico</h2>
+<div>
+    <p><strong>Nombre:</strong> @Model.Nombre @Model.Apellido</p>
+    <p><strong>Especialidad:</strong> @Model.Especialidad</p>
+    <p><strong>Cédula/Licencia:</strong> @Model.NumeroLicencia</p>
+</div>
+<a asp-action="Index">Regresar</a>

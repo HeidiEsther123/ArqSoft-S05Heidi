@@ -1,16 +1,41 @@
 ﻿using Citas_App.Models;
 using Microsoft.AspNetCore.Mvc;
-
-namespace CitasApp.Controllers
+namespace Citas_App.Controllers
 {
     public class CitaController : Controller
     {
+     
         public static List<Cita> Citas = new List<Cita>
         {
-            new Cita { Id=1, PacienteId=1, MedicoId=1, Fecha=new DateOnly(2026,6,1), Hora=new TimeOnly(9,0), Motivo="Consulta general", Estado="Confirmada" },
-            new Cita { Id=2, PacienteId=2, MedicoId=2, Fecha=new DateOnly(2026,6,1), Hora=new TimeOnly(10,0), Motivo="Revisión de resultados", Estado="Pendiente" },
-            new Cita { Id=3, PacienteId=3, MedicoId=1, Fecha=new DateOnly(2026,6,3), Hora=new TimeOnly(11,0), Motivo="Primera consulta", Estado="Pendiente" }
+            new Cita {
+                Id = 1,
+                PacienteId = 1,
+                MedicoId = 1,
+                Fecha = DateOnly.Parse("2026-06-01"),
+                Hora = TimeOnly.Parse("09:00"),
+                Motivo = "Consulta general",
+                Estado = "Confirmada"
+            },
+            new Cita {
+                Id = 2,
+                PacienteId = 2,
+                MedicoId = 2,
+                Fecha = DateOnly.Parse("2026-06-01"),
+                Hora = TimeOnly.Parse("10:00"),
+                Motivo = "Revisión de resultados",
+                Estado = "Pendiente"
+            },
+            new Cita {
+                Id = 3,
+                PacienteId = 3,
+                MedicoId = 1,
+                Fecha = DateOnly.Parse("2026-06-03"),
+                Hora = TimeOnly.Parse("11:00"),
+                Motivo = "Primera consulta",
+                Estado = "Pendiente"
+            }
         };
+
         private void CargarCatalogos()
         {
             ViewBag.Pacientes = PacienteController.Pacientes;

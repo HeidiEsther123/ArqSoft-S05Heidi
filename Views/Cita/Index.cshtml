@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Citas_App.Models.Cita>
+<h2>Agenda Global de Citas</h2>
+<table class="table">
+    <thead>
+        <tr><th>Fecha/Hora</th><th>Paciente</th><th>Médico</th><th>Motivo</th><th>Estado</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var pac = (ViewBag.Pacientes as List<Citas_App.Models.Paciente>)?.FirstOrDefault(p => p.Id == item.PacienteId);
+            var med = (ViewBag.Medicos as List<Citas_App.Models.Medico>)?.FirstOrDefault(m => m.Id == item.MedicoId);
+            <tr>
+                <td>@item.Fecha.ToString("dd/MM/yyyy") @item.Hora.ToString("HH:mm")</td>
+                <td>@(pac != null ? pac.Nombre : "No encontrado")</td>
+                <td>@(med != null ? med.Nombre : "No encontrado")</td>
+                <td>@item.Motivo</td>
+                <td><span class="badge bg-secondary">@item.Estado</span></td>
+            </tr>
+        }
+    </tbody>
+</table>

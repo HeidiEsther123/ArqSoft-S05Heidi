@@ -1,0 +1,10 @@
+﻿@model Citas_App.Models.Paciente
+<h2>Detalle del Paciente</h2>
+<div>
+    <p><strong>ID:</strong> @Model.Id</p>
+    <p><strong>Nombre:</strong> @Model.Nombre @Model.Apellido</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Teléfono:</strong> @Model.Telefono</p>
+</div>
+<a asp-controller="Cita" asp-action="PorPaciente" asp-route-pacienteId="@Model.Id" class="btn btn-primary">Ver sus Citas</a> |
+<a asp-action="Index">Regresar</a>
