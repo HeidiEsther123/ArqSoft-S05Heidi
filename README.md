@@ -36,5 +36,4 @@
 ---
 ## 🤖👾 AI 🤖👾
 
-Yo Heidi Esther Peña Betanzos use AI para r<img width="1916" height="1079" alt="Captura de pantalla 2026-06-03 212610" src="https://github.com/user-attachments/assets/429de1d7-1a26-4239-9d00-e8d2be908940" />
-esolver problemas en mi codigo que no podia resolver ni con la herramienta de visual. el pront que use fue el siguente; "necesito ayuda en esta parte por mas que use la herrmaienta de fix no me esta ayudando."
+Yo Heidi Esther Peña Betanzos use AI para resolver problemas en mi codigo que no habia podido resolver ni con la herramienta de visual. el pront que use fue el siguente; "necesito ayuda en esta parte por mas que use la herrmaienta de fix no me esta ayudando."
