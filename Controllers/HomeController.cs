@@ -1,5 +1,5 @@
-using Citas_App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Citas_App.Domain.Models;
 using System.Diagnostics;
 
 namespace Citas_App.Controllers
@@ -19,7 +19,10 @@ namespace Citas_App.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

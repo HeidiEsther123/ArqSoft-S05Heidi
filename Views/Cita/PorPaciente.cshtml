@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Citas_App.Models.Cita>
+﻿@model IEnumerable<Citas_App.Domain.Models.Cita>
 
 <h2>Citas de: @ViewBag.PacienteSeleccionado</h2>
 
@@ -14,7 +14,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            var med = (ViewBag.Medicos as List<Citas_App.Models.Medico>)?.FirstOrDefault(m => m.Id == item.MedicoId);
+            var med = (ViewBag.Medicos as List<Citas_App.Domain.Models.Medico>)?.FirstOrDefault(m => m.Id == item.MedicoId);
             <tr>
                 <td>@item.Fecha @item.Hora</td>
                 <td>@(med != null ? med.Nombre : "No encontrado")</td>

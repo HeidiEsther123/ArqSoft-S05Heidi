@@ -1,48 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Citas_App.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using Microsoft.AspNetCore.Hosting;
+using Citas_App.Domain.Interfaces;
+using Citas_App.Domain.Models;
 
 namespace Citas_App.Controllers
 {
     public class PacienteController : Controller
     {
-        private readonly string _pathPacientes;
+        private readonly IPacienteRepository _repo;
 
-        public PacienteController(IWebHostEnvironment env)
+        public PacienteController(IPacienteRepository repo)
         {
-            _pathPacientes = Path.Combine(env.ContentRootPath, "data", "pacientes.json");
-        }
-
-        private List<Paciente> ObtenerPacientes()
-        {
-            if (!System.IO.File.Exists(_pathPacientes))
-            {
-                return new List<Paciente>();
-            }
-            var json = System.IO.File.ReadAllText(_pathPacientes);
-            return JsonSerializer.Deserialize<List<Paciente>>(json) ?? new List<Paciente>();
+            _repo = repo;
         }
 
         public IActionResult Index()
         {
-            var pacientes = ObtenerPacientes();
+            var pacientes = _repo.ObtenerTodos();
             return View(pacientes);
         }
 
         public IActionResult Detalle(int id)
         {
-            var pacientes = ObtenerPacientes();
-            var paciente = pacientes.FirstOrDefault(p => p.Id == id);
-            if (paciente == null)
-            {
-                return NotFound();
-            }
+            var paciente = _repo.ObtenerPorId(id);
+            if (paciente == null) return NotFound();
             return View(paciente);
+        }
+
+        public IActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Crear(Paciente paciente)
+        {
+            _repo.Agregar(paciente);
+            return RedirectToAction("Index");
         }
     }
 }
