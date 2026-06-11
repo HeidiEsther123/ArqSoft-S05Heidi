@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
 builder.Services.AddScoped<IPacienteRepository, MemoriaPacienteRepository>();
+builder.Services.AddScoped<IPacienteRepository, CsvPacienteRepository>();
 
 var app = builder.Build();
 
