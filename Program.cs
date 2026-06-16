@@ -28,18 +28,19 @@ var sqlitePath = Path.Combine(dataFolder, "citasapp.db");
 // ¡Las interfaces (Ports) no cambian!
 
 // ▶ Bloque A — JSON (como estaba antes)
-
+/*
 builder.Services.AddSingleton<IPacienteRepository, JsonPacienteRepository>();
 builder.Services.AddSingleton<IMedicoRepository,   JsonMedicoRepository>();
 builder.Services.AddSingleton<ICitaRepository,     JsonCitaRepository>();
-
+*/
 
 // ▶ Bloque B — CSV  ← activo ahora
-/*
+
 builder.Services.AddSingleton<IPacienteRepository>(_ => new CsvPacienteRepository(csvPacientes));
 builder.Services.AddSingleton<IMedicoRepository>(_ => new CsvMedicoRepository(csvMedicos));
 builder.Services.AddSingleton<ICitaRepository>(_ => new CsvCitaRepository(csvCitas));
-*/
+
+
 // ▶ Bloque C — SQLite
 /*
 builder.Services.AddSingleton<IPacienteRepository>(_ => new SqlitePacienteRepository(sqlitePath));
