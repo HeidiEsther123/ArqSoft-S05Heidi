@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Dr. Carlos Reyes",
+    "Especialidad": "Medicina General",
+    "NumeroLicencia": "MG-10421"
+  },
+  {
+    "Id": 2,
+    "Nombre": "Dra. Patricia Vega",
+    "Especialidad": "Pediatría",
+    "NumeroLicencia": "PD-20835"
+  },
+  {
+    "Id": 3,
+    "Nombre": "Dr. Roberto Sánchez",
+    "Especialidad": "Cardiología",
+    "NumeroLicencia": "CA-30117"
+  },
+  {
+    "Id": 4,
+    "Nombre": "Dr. Roberto Arteaga",
+    "Especialidad": "Psicólogo",
+    "NumeroLicencia": "AA-30348"
+  },
+  {
+    "Id": 5,
+    "Nombre": "Dr. Williams Escalona",
+    "Especialidad": "Urólogo",
+    "NumeroLicencia": "BA-65101"
+  },
+  {
+    "Id": 6,
+    "Nombre": "Dr. Jésus Molletones",
+    "Especialidad": "Cirujano Plastico",
+    "NumeroLicencia": "SF-75873"
+  }
+]
