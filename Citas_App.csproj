@@ -1,26 +1,38 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="Citas_App.Api.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Citas_App.Api\**" />
+		<Compile Remove="Citas_App.Application\**" />
+		<Compile Remove="Citas_App.Domain\**" />
+		<Compile Remove="Citas_App.Infrastructure\**" />
+		<Content Remove="Citas_App.Api\**" />
+		<Content Remove="Citas_App.Application\**" />
+		<Content Remove="Citas_App.Domain\**" />
+		<Content Remove="Citas_App.Infrastructure\**" />
+		<EmbeddedResource Remove="Citas_App.Api\**" />
+		<EmbeddedResource Remove="Citas_App.Application\**" />
+		<EmbeddedResource Remove="Citas_App.Domain\**" />
+		<EmbeddedResource Remove="Citas_App.Infrastructure\**" />
+		<None Remove="Citas_App.Api\**" />
+		<None Remove="Citas_App.Application\**" />
+		<None Remove="Citas_App.Domain\**" />
+		<None Remove="Citas_App.Infrastructure\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Citas_App.Application\Citas_App.Application.csproj" />
-    <ProjectReference Include="..\Citas_App.Domain\Citas_App.Domain.csproj" />
-    <ProjectReference Include="..\Citas_App.Infrastructure\Citas_App.Infrastructure.csproj" />
-    <ProjectReference Include="Citas_App.Api\Citas_App.Api.csproj" />
-    <ProjectReference Include="Citas_App.Domain\Citas_App.Domain.csproj" />
-    <ProjectReference Include="Citas_App.Infrastructure\Citas_App.Infrastructure.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="Citas_App.Domain\Citas_App.Domain.csproj" />
+		<ProjectReference Include="Citas_App.Application\Citas_App.Application.csproj" />
+		<ProjectReference Include="Citas_App.Infrastructure\Citas_App.Infrastructure.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
+	</ItemGroup>
 
 </Project>

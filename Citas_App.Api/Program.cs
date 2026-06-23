@@ -13,7 +13,7 @@ builder.Services.AddScoped<IPacienteRepository>(sp =>
 
     var repo = RepositoryFactory.CrearPacienteRepository(builder.Environment.EnvironmentName, env);
 
-    return new LoggingPacienteRepository(repo);
+    return new LogginPacienteRepository(repo);
 });
 
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
