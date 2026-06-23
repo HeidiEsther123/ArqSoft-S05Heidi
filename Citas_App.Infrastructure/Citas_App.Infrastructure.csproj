@@ -15,7 +15,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Citas_App.Domain\Citas_App.Domain.csproj" />
+	  <ProjectReference Include="..\Citas_App.Application\Citas_App.Application.csproj" />
+	  <ProjectReference Include="..\Citas_App.Domain\Citas_App.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

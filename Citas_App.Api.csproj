@@ -7,20 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Citas_App.Api.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Citas_App.Application\Citas_App.Application.csproj" />
     <ProjectReference Include="..\Citas_App.Domain\Citas_App.Domain.csproj" />
     <ProjectReference Include="..\Citas_App.Infrastructure\Citas_App.Infrastructure.csproj" />
-    <ProjectReference Include="Citas_App.Api\Citas_App.Api.csproj" />
-    <ProjectReference Include="Citas_App.Domain\Citas_App.Domain.csproj" />
-    <ProjectReference Include="Citas_App.Infrastructure\Citas_App.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
+	  <ItemGroup>
+		  <Compile Remove="Citas_App.Api\**\*.cs" />
+		  <Compile Remove="Citas_App.Application\**\*.cs" />
+		  <Compile Remove="Citas_App.Domain\**\*.cs" />
+		  <Compile Remove="Citas_App.Infrastructure\**\*.cs" />
+	  </ItemGroup>
   </ItemGroup>
 
 </Project>
