@@ -2,30 +2,47 @@
 using Citas_App.Domain.Interfaces;
 using Citas_App.Infrastructure.Repositories;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-
-builder.Services.AddScoped<IPacienteRepository>(sp =>
+namespace Citas_App.Api
 {
-  
-    var env = sp.GetRequiredService<IWebHostEnvironment>();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-    var repo = RepositoryFactory.CrearPacienteRepository(builder.Environment.EnvironmentName, env);
+            builder.Services.AddControllers();
 
-    return new LogginPacienteRepository(repo);
-});
+            // Swagger configurado
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
-builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
+            builder.Services.AddScoped<IPacienteRepository>(sp =>
+            {
+                var env = sp.GetRequiredService<IWebHostEnvironment>();
+                var repo = RepositoryFactory.CrearPacienteRepository(builder.Environment.EnvironmentName, env);
+                return new LogginPacienteRepository(repo);
+            });
 
-builder.Services.AddScoped<PacienteService>();
-builder.Services.AddScoped<MedicoService>();
-builder.Services.AddScoped<CitaService>();
+            builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
+            builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
+            builder.Services.AddScoped<PacienteService>();
+            builder.Services.AddScoped<MedicoService>();
+            builder.Services.AddScoped<CitaService>();
 
-var app = builder.Build();
+            var app = builder.Build();
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+            // Activar Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Citas V1");
+            });
+
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
