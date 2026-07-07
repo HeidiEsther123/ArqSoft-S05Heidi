@@ -31,8 +31,10 @@
 ## 4. Medicos 
 <img width="1919" height="1079" alt="Captura de pantalla 2026-06-03 212602" src="https://github.com/user-attachments/assets/181adf8c-f0f1-4a2a-928c-f0b6e96bf9cb" />
 
-
-
+---
+## Diagrama C4 NIVEL 1
+[Ver diagrama C4 Nivel 1](./C4_nivel_1.md)
+---
 ---
 ## 🤖👾 AI 🤖👾
 
