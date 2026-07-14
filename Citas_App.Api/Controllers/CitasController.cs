@@ -25,3 +25,4 @@ namespace Citas_App.Api.Controllers
         }
     }
 }
+//Antes de aplicar metodos de Factorizacion, Extract Method, Extract Class, Dependency
