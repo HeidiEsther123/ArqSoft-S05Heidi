@@ -16,7 +16,7 @@ namespace Citas_App.Infrastructure.Repositories
         {
             return entorno switch
             {
-                "Sqlite" => new SqlitePacienteRepository(ObtenerRutaDb(env)),
+                "Sqlite" => new SqlitePacienteRepository(new SqliteDbContext(ObtenerRutaDb(env))),
                 "Production" => new MemoriaPacienteRepository(),
                 _ => new JsonPacienteRepository(env)
             };

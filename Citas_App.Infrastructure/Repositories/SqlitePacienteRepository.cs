@@ -1,9 +1,3 @@
-// CitasApp.Infrastructure/Repositories/SqlitePacienteRepository.cs
-// Adapter de salida — implementa IPacienteRepository usando SQLite
-//
-// Comparte el mismo archivo .db que SqliteCitaRepository.
-// Pasa la misma ruta dbPath desde Program.cs.
-
 using Citas_App.Domain.Interfaces;
 using Citas_App.Domain.Models;
 using Microsoft.Data.Sqlite;
@@ -12,46 +6,30 @@ namespace Citas_App.Infrastructure.Repositories
 {
     public class SqlitePacienteRepository : IPacienteRepository
     {
-        private readonly string _connectionString;
+        // 💡 Refactorización: Ahora dependemos del contexto inyectado
+        private readonly SqliteDbContext _context;
 
-        public SqlitePacienteRepository(string dbPath)
+        public SqlitePacienteRepository(SqliteDbContext context)
         {
-            _connectionString = $"Data Source={dbPath}";
-            InicializarTabla();
-        }
-
-        private void InicializarTabla()
-        {
-            using var conn = new SqliteConnection(_connectionString);
-            conn.Open();
-            var cmd = conn.CreateCommand();
-            cmd.CommandText = @"
-                CREATE TABLE IF NOT EXISTS Pacientes (
-                    Id       INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Nombre   TEXT NOT NULL,
-                    Apellido TEXT NOT NULL,
-                    Email    TEXT,
-                    Telefono TEXT
-                );";
-            cmd.ExecuteNonQuery();
+            _context = context;
         }
 
         private static Paciente LeerFila(SqliteDataReader r) => new Paciente
         {
-            Id       = r.GetInt32(0),
-            Nombre   = r.GetString(1),
+            Id = r.GetInt32(0),
+            Nombre = r.GetString(1),
             Apellido = r.GetString(2),
-            Email    = r.IsDBNull(3) ? string.Empty : r.GetString(3),
+            Email = r.IsDBNull(3) ? string.Empty : r.GetString(3),
             Telefono = r.IsDBNull(4) ? string.Empty : r.GetString(4)
         };
 
+        // ── Port ────────────────────────────────────────────────────────────────
+
         public List<Paciente> ObtenerTodos()
         {
-            using var conn = new SqliteConnection(_connectionString);
-            conn.Open();
+            using var conn = _context.CrearConexion();
             var cmd = conn.CreateCommand();
-            cmd.CommandText =
-                "SELECT Id, Nombre, Apellido, Email, Telefono FROM Pacientes;";
+            cmd.CommandText = "SELECT Id, Nombre, Apellido, Email, Telefono FROM Pacientes;";
 
             var lista = new List<Paciente>();
             using var r = cmd.ExecuteReader();
@@ -61,21 +39,18 @@ namespace Citas_App.Infrastructure.Repositories
 
         public Paciente? ObtenerPorId(int id)
         {
-            using var conn = new SqliteConnection(_connectionString);
-            conn.Open();
+            using var conn = _context.CrearConexion();
             var cmd = conn.CreateCommand();
-            cmd.CommandText =
-                "SELECT Id, Nombre, Apellido, Email, Telefono " +
-                "FROM Pacientes WHERE Id = $id;";
+            cmd.CommandText = "SELECT Id, Nombre, Apellido, Email, Telefono FROM Pacientes WHERE Id = $id;";
             cmd.Parameters.AddWithValue("$id", id);
 
             using var r = cmd.ExecuteReader();
             return r.Read() ? LeerFila(r) : null;
         }
+
         public void Agregar(Paciente paciente)
         {
-            using var conn = new SqliteConnection(_connectionString);
-            conn.Open();
+            using var conn = _context.CrearConexion();
             var cmd = conn.CreateCommand();
             cmd.CommandText = @"
                 INSERT INTO Pacientes (Nombre, Apellido, Email, Telefono)
@@ -87,5 +62,4 @@ namespace Citas_App.Infrastructure.Repositories
             cmd.ExecuteNonQuery();
         }
     }
-
 }

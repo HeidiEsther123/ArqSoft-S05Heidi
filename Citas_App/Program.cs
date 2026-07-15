@@ -39,11 +39,9 @@ builder.Services.AddSingleton<ICitaRepository>    (_ => new CsvCitaRepository(cs
 var dbContext = new SqliteDbContext(sqlitePath);
 builder.Services.AddSingleton(dbContext); // Registrar el contexto en el contenedor
 
-// 💡 Paciente y Médico se quedan con la ruta directa en string para que no den error
-builder.Services.AddSingleton<IPacienteRepository>(_ => new SqlitePacienteRepository(sqlitePath));
-builder.Services.AddSingleton<IMedicoRepository>(_ => new SqliteMedicoRepository(sqlitePath));
-
-// 💡 Solo Cita se desacopla inyectando el DbContext para tu tarea
+// Inyectamos el mismo dbContext en cada repositorio para desacoplarlos
+builder.Services.AddSingleton<IPacienteRepository>(sp => new SqlitePacienteRepository(sp.GetRequiredService<SqliteDbContext>()));
+builder.Services.AddSingleton<IMedicoRepository>(_ => new SqliteMedicoRepository(sqlitePath)); // Reemplázalo también si vas a cambiar el de Médicos luego, o déjalo con sqlitePath si aún no lo tocas.
 builder.Services.AddSingleton<ICitaRepository>(sp => new SqliteCitaRepository(sp.GetRequiredService<SqliteDbContext>()));
 
 

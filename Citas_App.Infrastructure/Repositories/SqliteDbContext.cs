@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.Sqlite;
-using System.IO;
 
 namespace Citas_App.Infrastructure.Repositories
 {
@@ -10,7 +9,7 @@ namespace Citas_App.Infrastructure.Repositories
         public SqliteDbContext(string dbPath)
         {
             _connectionString = $"Data Source={dbPath}";
-            InicializarEsquema();
+            InicializarTablas();
         }
 
         public SqliteConnection CrearConexion()
@@ -20,19 +19,29 @@ namespace Citas_App.Infrastructure.Repositories
             return conn;
         }
 
-        private void InicializarEsquema()
+        private void InicializarTablas()
         {
             using var conn = CrearConexion();
             var cmd = conn.CreateCommand();
+
+            // 💡 Agregamos la creación de ambas tablas de manera centralizada
             cmd.CommandText = @"
                 CREATE TABLE IF NOT EXISTS Citas (
                     Id         INTEGER PRIMARY KEY AUTOINCREMENT,
                     PacienteId INTEGER NOT NULL,
                     MedicoId   INTEGER NOT NULL,
-                    Fecha      TEXT    NOT NULL,   -- yyyy-MM-dd
-                    Hora       TEXT    NOT NULL,   -- HH:mm
+                    Fecha      TEXT    NOT NULL,
+                    Hora       TEXT    NOT NULL,
                     Motivo     TEXT,
                     Estado     TEXT    NOT NULL DEFAULT 'Pendiente'
+                );
+                
+                CREATE TABLE IF NOT EXISTS Pacientes (
+                    Id       INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Nombre   TEXT NOT NULL,
+                    Apellido TEXT NOT NULL,
+                    Email    TEXT,
+                    Telefono TEXT
                 );";
             cmd.ExecuteNonQuery();
         }
