@@ -38,6 +38,13 @@ La solución está dividida en los siguientes proyectos:
 * **Control de Versiones:** Git
 
 ---
+## 📸 Capturas de Pantalla de la Aplicación
+##### loggin 
+<img width="1910" height="1020" alt="Captura de pantalla 2026-07-15 111152" src="https://github.com/user-attachments/assets/d62f2e87-06aa-4bf9-a413-e4c7246a900f" />
 
+##### nuevo codigo implementado 'SqliteDbContext' 
+<img width="1380" height="783" alt="Captura de pantalla 2026-07-15 111219" src="https://github.com/user-attachments/assets/9d90a837-3748-4f45-ab2e-f5f77aeb2dbe" />
+
+---
 ## Uso de IA 
 Yo Heidi Esther Peña Betanzos usé IA para corregir errores de referencias entre proyectos que Visual Studio no me resolvía automáticamente.
