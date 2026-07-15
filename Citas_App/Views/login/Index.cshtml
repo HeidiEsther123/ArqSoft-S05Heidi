@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow" style="width: 400px;">
+        <div class="card-body p-4">
+            <h3 class="card-title text-center mb-4">🏥 CitasApp</h3>
+            <h5 class="text-center text-muted mb-4">Iniciar Sesión</h5>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Usuario</label>
+                    <input type="text" name="usuario" class="form-control" placeholder="Ingresa tu usuario" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            </form>
+
+            <hr />
+            <small class="text-muted">
+                <strong>Admin:</strong> admin / admin123 <br />
+                <strong>Médico:</strong> medico / medico123 <br />
+                <strong>Paciente:</strong> paciente / paciente123
+            </small>
+        </div>
+    </div>
+</div>

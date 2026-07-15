@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SQLitePCLRaw.core" Version="2.1.11" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Citas_App.Domain\Citas_App.Domain.csproj" />
   </ItemGroup>
 
