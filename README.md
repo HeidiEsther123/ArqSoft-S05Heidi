@@ -5,23 +5,39 @@
 ### Grado: 3B
 ## ADR — Estilo Arquitectónico
 
-#  🏥 CitasApp 🏥
+# 🏥 CitasApp — Sistema de Gestión de Citas Médicas
 
-## 👀 Contexto 👀
-CitasApp es una app web para gestionar citas médicas. Maneja pacientes, médicos y citas. Actualmente solo tiene interfaz web y guarda datos en JSON, pero podría crecer: app móvil, notificaciones, base de datos real.
+## 📝 Descripción del Proyecto
+**CitasApp** es una aplicación web desarrollada en **.NET 8** diseñada para optimizar y gestionar el flujo de citas médicas en clínicas o consultorios. Permite administrar de forma integral la información de **Pacientes**, **Médicos** y las **Citas** agendadas. 
+---
 
-## ☕ Decisión ☕
-Elegí Arquitectura Hexagonal dividida en tres proyectos: Domain, Infrastructure y Web. Lo hice porque si en el futuro necesito cambiar el almacenamiento de JSON a SQL, o agregar una API para una app móvil, solo cambio el Adapter sin tocar la lógica del negocio.
+## 🏗️ Estructura y Estilo Arquitectónico
+El sistema implementa una **Arquitectura Hexagonal (Puertos y Adaptadores)**, lo que garantiza una separación total entre las reglas de negocio y los detalles tecnológicos (como bases de datos o interfaces de usuario). 
 
-## ✅☕Consecuencias Positivas ☕✅
+La solución está dividida en los siguientes proyectos:
+* **`Citas_App.Domain` (Núcleo):** Contiene los modelos de negocio (`Cita`, `Paciente`, `Medico`, `Usuario`) y las interfaces o contratos (*Puertos*). No tiene dependencias de librerías externas ni de infraestructura.
+* **`Citas_App.Application`:** Orquesta los casos de uso del sistema a través de servicios (`CitaService`, `PacienteService`, etc.).
+* **`Citas_App.Infrastructure` (Adaptadores de Salida):** Implementa el acceso físico a los datos. Inicialmente soportaba almacenamiento en archivos JSON y CSV, pero fue refactorizada con un manejador centralizado (`SqliteDbContext`) para persistir datos en **SQLite**.
+* **`Citas_App` / `Citas_App.Api` (Adaptadores de Entrada):** La interfaz gráfica web construida bajo el patrón **ASP.NET Core MVC** y los controladores que exponen los flujos al navegador.
 
-Si lo llegara a cambiar el JSON a base de datos, solo creo un nuevo repositorio. Los controllers y modelos no se tocan.
-Si agrego una app móvil, solo agrego un nuevo Adapter de entrada.
+---
 
-## ☕❌ Consecuencias Negativas ❌☕
+## 🛡️ Nuevas Características Añadidas
+1. **Sistema de Autenticación (Login):** Se implementó un flujo de seguridad en capas para validar el acceso al sistema, utilizando `HttpContext.Session` para mantener y proteger las sesiones de usuario activas durante la navegación.
+2. **Refactorización de Infraestructura (Mitigación de Code Smells):** * **Extract Class:** Se extrajo la lógica de conexiones e inicialización física de tablas a la clase especializada `SqliteDbContext`.
+   * **Dependency Injection:** Se inyectó de manera centralizada el contexto en los repositorios (`SqliteCitaRepository`, `SqlitePacienteRepository`), eliminando el acoplamiento fuerte (*Tight Coupling*) que generaba tener `new SqliteConnection()` repetido en cada adaptador.
 
-Configurar tres proyectos con sus referencias y namespaces fue más complicado que tener todo en uno.
-Para un sistema tan pequeño, quizás capas simples hubiera sido suficiente.
+---
+
+## 🛠️ Tecnologías Usadas
+* **Lenguaje:** C# 12
+* **Framework Principal:** .NET 8 / ASP.NET Core MVC
+* **Motor de Base de Datos:** SQLite (vía `Microsoft.Data.Sqlite` y `SQLitePCL`)
+* **Gestión de Estado:** Distributed Memory Cache & Sessions para el módulo de Login.
+* **IDE:** Visual Studio 2022
+* **Control de Versiones:** Git
+
+---
 
 ## Uso de IA 
 Yo Heidi Esther Peña Betanzos usé IA para corregir errores de referencias entre proyectos que Visual Studio no me resolvía automáticamente.
