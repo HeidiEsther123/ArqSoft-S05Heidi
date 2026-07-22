@@ -85,3 +85,37 @@ Elegí Arquitectura Hexagonal dividida en tres proyectos: Domain, Infrastructure
 - Para un sistema tan pequeño, quizás capas simples hubiera sido suficiente.
 
 ---
+## Pruebas unitarias e Integración Continua
+
+### 🧪 Pruebas — `Citas_App.Tests/`
+Suite de pruebas con **xUnit**, cubriendo:
+
+- **`CitaService`** — obtención de todas las citas y filtrado por paciente.
+- **`MedicoService`** — obtención de médicos y búsqueda por Id (incluyendo el caso de Id inexistente).
+- **`PacienteService`** — obtención de pacientes, búsqueda por Id, y registro de nuevos pacientes.
+
+Las pruebas usan repositorios fake en memoria (`CitaRepositoryFake`, `MedicoRepositoryFake`, `PacienteRepositoryFake`) que implementan los mismos Puertos (`ICitaRepository`, etc.) que usa el proyecto real, en lugar de depender de JSON o SQLite durante las pruebas.
+
+Para correrlas localmente:
+```bash
+dotnet test Citas_App.slnx
+```
+
+### ⚙️ Integración Continua — `.github/workflows/ci.yml`
+Cada `push` y Pull Request dispara un workflow de GitHub Actions que:
+
+1. Restaura los paquetes NuGet
+2. Compila la solución completa
+3. Corre la suite de pruebas xUnit
+
+El resultado (✅ o ❌) aparece como check en cada Pull Request.
+
+**Evidencia del pipeline funcionando:**
+
+<img width="1918" height="1015" alt="Captura de pantalla 2026-07-21 220935" src="https://github.com/user-attachments/assets/3418216c-c3c1-48c7-8853-1bb6edb588a1" />
+
+---
+
+## Uso de IA
+
+Yo Heidi Esther Peña Betanzos usé IA para corregir errores de referencias entre proyectos que Visual Studio no me resolvía automáticamente y para configurar el pipeline de GitHub Actions.
