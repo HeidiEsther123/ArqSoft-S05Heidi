@@ -25,7 +25,7 @@ namespace Citas_App.Tests.Services
             var resultado = service.ObtenerTodos();
 
             // Assert
-            Assert.Equal(3, resultado.Count);
+            Assert.Equal(99, resultado.Count);
             Assert.Equal(citas, resultado);
         }
 
